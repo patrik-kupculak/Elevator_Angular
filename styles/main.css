@@ -1,0 +1,70 @@
+/* General css */
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Header */
+.elevator-info {
+    list-style-type: none;
+    padding: 0;
+    border: 3px solid darkblue;
+    border-radius: 3em;
+    background-color: lightblue;
+    padding: 0 3em;
+    text-align: center;
+}
+
+.elevator-info-item {
+    display: inline-block; /* Display elements inline */
+    margin: 1px;
+    border: 1px solid blue;
+    padding: 1em;
+}
+
+/* Outside css*/
+.elevator-outside-button {
+    display: inline-block;
+    border: 1px solid black;
+}
+
+.elevator-outside-button-item {
+    display: inline-block;
+    text-align: center;
+    margin: 5px;
+}
+
+/* Inside css */
+.elevator-inside-button {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid black;
+}
+
+.elevator-inside-button-item {
+    display: inline-block;
+    margin: 1px;
+    padding: 1em;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.elevator-inside-button-item:hover {
+    background-color: yellow;
+}
+
+.highlighted {
+    background-color: green;
+}
+
+/* Button up/down */
+.elevator-outside-buttons-highlight {
+    background-color: greenyellow;
+}

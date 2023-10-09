@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html ng-app="elevatorApp">
+<head>
+    <meta charset='utf-8'>
+    <title>Elevator App</title>
+
+    <!-- Styles -->
+    <link rel='stylesheet' type='text/css' media='screen' href='styles/main.css'>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src='controller/elevator.ctrl.js'></script>
+</head>
+<body>
+    <div ng-controller="mainCtrl" class="elevator">
+        <div>
+            <h3>Info</h3>
+            Human at floor: {{humanCurrFloor}}<br>
+            Elevator at floor: {{current_floor}}<br>
+            Elevator door: {{ (current_floor > destination) ? '▼' : ((current_floor < destination) ? '▲' : '►◄')}}<br>
+            Elevator destination: {{destination}}<br>
+            Floors: 
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Floor</th>
+                        <th>Continue Up</th>
+                        <th>Continue Down</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in stopFloorsDrct">
+                        <td>{{ item.floor }}</td>
+                        <td>{{ item.continue_up }}</td>
+                        <td>{{ item.continue_down }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <ul class="elevator-info">
+                <li ng-repeat="num in optionValues" ng-style="{backgroundColor: (current_floor == num ? 'yellow' : '')}" class="elevator-info-item"> {{num}} </li>
+            </ul>
+        </div>
+        <div ng-if="!inside_elevator">
+            <h1>Outside elevator</h1>
+            <div class="elevator-outside-button">
+                <div class="elevator-outside-button-item">
+                    <div style="font-size:20px;">floor</div>
+                    <div style="font-size:40px;">{{ current_floor }}</div>
+                </div>
+                <div class="elevator-outside-button-item">
+                    <button ng-if="humanCurrFloor < totalFloors" 
+                            ng-click="chooseDestinationOutside(1)"
+                            ng-class="{'elevator-outside-buttons-highlight': isHighlightedEleButton('up', humanCurrFloor)}"
+                            style="border: 1px solid black;">▲</button><br>
+                    <button ng-if="humanCurrFloor > 0" 
+                            ng-click="chooseDestinationOutside(-1)"
+                            ng-class="{'elevator-outside-buttons-highlight': isHighlightedEleButton('down', humanCurrFloor)}"
+                            style="border: 1px solid black;">▼</button>
+                </div>
+            </div><br>
+            <button ng-click="toggleElevator()">ENTRY</button><br>
+            <hr>
+            <form name="chooseFloor">
+                <label>Choose floor for human</label>
+                <select for="singleSelect" ng-model="active_floor_choose" ng-change="chooseFloorSel(active_floor_choose)">
+                    <option ng-repeat="value in optionValues">{{ value }}</option>
+                </select>
+            </form>
+            
+        </div>
+        <div ng-if="inside_elevator">
+            <h1>Inside elevator</h1>
+            <div>
+                <ul class="elevator-inside-button">
+                    <li ng-repeat="num in optionValues" 
+                        ng-click="chooseDestinationInside(num)"
+                        ng-class="{'highlighted': isHighlighted(num)}"
+                        class="elevator-inside-button-item"> {{num}} </li>
+                </ul>
+            </div>
+            <button ng-click="toggleElevator()">EXIT</button><br>
+        </div>
+    </div>
+</body>
+</html>
